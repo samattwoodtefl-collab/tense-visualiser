@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Time Traveler's Story: A Tense Exploration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .transition-all-ease {
+            transition: all 0.4s ease-in-out;
+        }
+        .main-clause {
+            color: #10b981; /* emerald-500 */
+            font-weight: 600;
+        }
+        .dark .main-clause {
+            color: #34d399; /* emerald-400 */
+        }
+        .timeline-indicator {
+            position: relative;
+            transition: left 0.4s ease-in-out, width 0.4s ease-in-out;
+            transform: translateX(-50%);
+        }
+        .timeline-indicator-point {
+            background-color: #3b82f6; /* blue-500 */
+            border-radius: 9999px;
+            width: 12px !important;
+            height: 12px;
+            top: calc(50% - 6px);
+        }
+        .timeline-indicator-duration {
+            background-color: #10b981; /* emerald-500 */
+            border-radius: 9999px;
+            height: 8px;
+            top: calc(50% - 4px);
+        }
+        .timeline-indicator-perfect {
+            background-color: transparent;
+            background-image: repeating-linear-gradient(90deg, #8b5cf6, #8b5cf6 8px, transparent 8px, transparent 16px); /* violet-500 */
+            height: 6px;
+            top: calc(50% - 3px);
+            border-radius: 0;
+        }
+        .timeline-indicator-perfect-continuous {
+            background: radial-gradient(circle at 50% 100%, transparent 4px, #f59e0b 4px, #f59e0b 6px, transparent 6px) 0 -2px / 12px 6px,
+                        radial-gradient(circle at 50% 0, transparent 4px, #f59e0b 4px, #f59e0b 6px, transparent 6px) 0 4px / 12px 6px; /* amber-500 */
+            background-repeat: repeat-x;
+            height: 10px;
+            top: calc(50% - 5px);
+        }
+        .timeline-clause-label {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 6px;
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 0.75rem; /* text-xs */
+            color: #059669; /* emerald-600 */
+            background-color: rgba(240, 253, 244, 0.8); /* emerald-50 with opacity */
+            padding: 2px 6px;
+            border-radius: 4px;
+            backdrop-filter: blur(2px);
+        }
+        .dark .timeline-clause-label {
+            color: #6ee7b7; /* emerald-300 */
+            background-color: rgba(30, 41, 59, 0.7); /* slate-800 with opacity */
+        }
+        .timeline-marker-active {
+            color: #10b981; /* emerald-500 */
+            font-weight: 700;
+        }
+        .dark .timeline-marker-active {
+            color: #34d399; /* emerald-400 */
+        }
+        .nav-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .quiz-input-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            position: relative;
+        }
+        .quiz-input {
+            width: 150px;
+            border: 1px solid #9ca3af; /* gray-400 */
+            border-radius: 6px;
+            padding: 2px 8px;
+            background-color: #f9fafb; /* gray-50 */
+            color: #1f2937; /* gray-800 */
+            transition: all 0.2s ease-in-out;
+            text-align: center;
+        }
+        .dark .quiz-input {
+            background-color: #374151; /* gray-700 */
+            border-color: #6b7280; /* gray-500 */
+            color: #f3f4f6; /* gray-200 */
+        }
+        .quiz-input:focus {
+            outline: none;
+            border-color: #3b82f6; /* blue-500 */
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+        }
+        .quiz-input.correct {
+            border-color: #10b981; /* emerald-500 */
+            background-color: #ecfdf5; /* emerald-50 */
+            color: #047857;
+        }
+        .dark .quiz-input.correct {
+            background-color: #064e3b; /* emerald-900 */
+            color: #a7f3d0;
+        }
+        .quiz-input.incorrect {
+            border-color: #ef4444; /* red-500 */
+            background-color: #fef2f2; /* red-50 */
+            color: #b91c1c;
+        }
+        .dark .quiz-input.incorrect {
+            background-color: #7f1d1d; /* red-900 */
+            color: #fecaca;
+        }
+        .mode-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .mode-btn.active {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+        }
+        .mode-btn:not(.active) {
+            background-color: #e5e7eb; /* gray-200 */
+            color: #374151; /* gray-700 */
+        }
+        .dark .mode-btn:not(.active) {
+            background-color: #4b5563; /* gray-600 */
+            color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 antialiased">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        
+        <header class="mb-8">
+            <div id="mode-switcher" class="flex justify-end gap-2 mb-2">
+                <button id="review-btn-nav" class="mode-btn active">Review</button>
+                <button id="quiz-btn-nav" class="mode-btn">Quiz</button>
+            </div>
+            <div class="text-center">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">The Time Traveler's Story</h1>
+                <p id="header-subtitle" class="text-md sm:text-lg text-gray-600 dark:text-gray-400 mt-2">A self-guided exploration of English tenses.</p>
+            </div>
+        </header>
+
+        <!-- Story Display Area -->
+        <div id="story-area">
+            <div id="display-area" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8 flex flex-col justify-center transition-all-ease min-h-[450px]">
+                <h2 id="tense-name" class="text-2xl md:text-3xl font-bold text-blue-500 dark:text-blue-400 mb-4 text-center"></h2>
+                <p id="tense-explanation" class="text-center text-gray-500 dark:text-gray-400 text-sm md:text-base mb-6 max-w-2xl mx-auto"></p>
+                <div id="examples-container" class="space-y-4">
+                    <!-- Examples will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div id="navigation" class="flex justify-between items-center mb-8">
+                <button id="prev-btn" class="nav-btn py-2 px-5 rounded-lg font-semibold bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    Previous
+                </button>
+                <span id="step-counter" class="text-sm font-medium text-gray-500 dark:text-gray-400"></span>
+                <button id="next-btn" class="nav-btn py-2 px-5 rounded-lg font-semibold bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+            </div>
+            
+            <!-- Timeline Visualizer -->
+            <div id="timeline-visualizer" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8">
+                <h3 class="text-xl font-bold text-center text-gray-900 dark:text-white mb-6">Story Timeline</h3>
+                <div class="relative h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-24">
+                    <div class="absolute w-full -top-10 flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                        <span id="timeline-past">Past</span>
+                        <span id="timeline-present">Present</span>
+                        <span id="timeline-future">Future</span>
+                    </div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-6 bg-gray-400 dark:bg-gray-500"></div>
+                    <div id="timeline-indicator" class="timeline-indicator absolute"></div>
+                    <div id="timeline-markers" class="absolute w-full h-full top-0 left-0"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Area -->
+        <div id="quiz-area" class="hidden bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8">
+            <div id="quiz-selection">
+                <h2 class="text-2xl md:text-3xl font-bold text-blue-500 dark:text-blue-400 mb-2 text-center">Practice Your Tenses!</h2>
+                <p class="text-center text-gray-500 dark:text-gray-400 mb-8">Choose a story to test your knowledge.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button data-quiz="past" class="quiz-select-btn nav-btn py-3 px-6 rounded-lg font-semibold bg-purple-500 text-white hover:bg-purple-600">The Ancient Map (Past)</button>
+                    <button data-quiz="present" class="quiz-select-btn nav-btn py-3 px-6 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600">The City Market (Present)</button>
+                    <button data-quiz="future" class="quiz-select-btn nav-btn py-3 px-6 rounded-lg font-semibold bg-sky-500 text-white hover:bg-sky-600">The Mars Mission (Future)</button>
+                </div>
+            </div>
+
+            <div id="quiz-content" class="hidden">
+                <h2 id="quiz-title" class="text-2xl md:text-3xl font-bold text-blue-500 dark:text-blue-400 mb-2 text-center"></h2>
+                <p class="text-center text-gray-500 dark:text-gray-400 mb-8">Fill in the blanks with the correct form of the verb.</p>
+                <div id="quiz-story" class="space-y-3 text-lg text-center leading-relaxed">
+                    <!-- Quiz questions will be injected here -->
+                </div>
+                <div id="quiz-controls" class="mt-8 flex justify-center gap-4">
+                    <button id="submit-btn" class="nav-btn py-2 px-5 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600">Submit</button>
+                    <button id="try-again-btn" class="nav-btn py-2 px-5 rounded-lg font-semibold bg-gray-500 text-white hover:bg-gray-600 hidden">Try Again</button>
+                    <button id="reveal-btn" class="nav-btn py-2 px-5 rounded-lg font-semibold bg-blue-500 text-white hover:bg-blue-600 hidden">Reveal Answers</button>
+                    <button id="back-to-selection-btn" class="nav-btn py-2 px-5 rounded-lg font-semibold bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600">Change Story</button>
+                </div>
+                <p id="quiz-results" class="text-center mt-4 h-6 font-semibold"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const storyData = {
+                // --- PAST ---
+                'past-simple': { 
+                    name: 'Past Simple', 
+                    explanation: 'Our story begins long ago, with a single completed action in the past.',
+                    structure: {
+                        positive: 'Subject + Verb (past tense)',
+                        negative: 'Subject + did not + Verb',
+                        question: 'Did + Subject + Verb?'
+                    },
+                    examples: {
+                        positive: 'Long ago, a boy <span class="main-clause">found</span> a strange glowing watch buried in the sand.',
+                        negative: 'He <span class="main-clause">did not know</span> what it was.',
+                        question: '<span class="main-clause">Did</span> he <span class="main-clause">show</span> it to anyone?'
+                    },
+                    timeline: { type: 'point', position: 10, shape: 'point' }
+                },
+                'past-continuous': { 
+                    name: 'Past Continuous',
+                    explanation: 'This describes an ongoing past action that was interrupted by another.',
+                    structure: {
+                        positive: 'Subject + was/were + Verb-ing',
+                        negative: 'Subject + was/were + not + Verb-ing',
+                        question: 'Was/Were + Subject + Verb-ing?'
+                    },
+                    examples: {
+                        positive: 'He <span class="main-clause">was turning</span> it over in his hands when the numbers suddenly <span class="main-clause">began</span> to spin.',
+                        negative: 'He <span class="main-clause">was not paying</span> attention to anything else.',
+                        question: '<span class="main-clause">Was</span> he <span class="main-clause">sitting</span> on the beach at the time?'
+                    },
+                    timeline: { type: 'duration', start: 5, end: 15, shape: 'duration', marker: { position: 12, label: 'Numbers spun' }, mainClause: 'was turning' }
+                },
+                'past-perfect': { 
+                    name: 'Past Perfect',
+                    explanation: 'This describes a past action that happened *before* another past action.',
+                    structure: {
+                        positive: 'Subject + had + Past Participle',
+                        negative: 'Subject + had not + Past Participle',
+                        question: 'Had + Subject + Past Participle?'
+                    },
+                    examples: {
+                        positive: 'By the time he showed his friends, the watch <span class="main-clause">had already changed</span> its shape.',
+                        negative: 'His friends were confused because they <span class="main-clause">had not seen</span> it glow.',
+                        question: '<span class="main-clause">Had</span> the boy <span class="main-clause">tried</span> to open it before?'
+                    },
+                    timeline: { type: 'duration', start: 8, end: 18, shape: 'perfect', marker: { position: 18, label: 'Showed friends' }, mainClause: 'had changed' }
+                },
+                 'past-perfect-continuous': {
+                    name: 'Past Perfect Continuous',
+                    explanation: 'This emphasizes the duration of a past action that happened before another past event.',
+                    structure: {
+                        positive: 'Subject + had been + Verb-ing',
+                        negative: 'Subject + had not been + Verb-ing',
+                        question: 'Had + Subject + been + Verb-ing?'
+                    },
+                    examples: {
+                        positive: 'For weeks, he <span class="main-clause">had been hearing</span> whispers from the watch before he finally put it on.',
+                        negative: 'He <span class="main-clause">had not been sleeping</span> well because of the strange noises.',
+                        question: '<span class="main-clause">Had</span> the watch <span class="main-clause">been trying</span> to communicate with him?'
+                    },
+                    timeline: { type: 'duration', start: 15, end: 25, shape: 'perfect-continuous', marker: { position: 25, label: 'Put it on' }, mainClause: 'had been hearing' }
+                },
+                
+                // --- PRESENT ---
+                'present-simple': { 
+                    name: 'Present Simple', 
+                    explanation: 'The story moves to the present. We use this for current habits and general truths.',
+                    structure: {
+                        positive: 'Subject + Verb (s/es)',
+                        negative: 'Subject + do/does + not + Verb',
+                        question: 'Do/Does + Subject + Verb?'
+                    },
+                    examples: {
+                        positive: 'Now, he <span class="main-clause">travels</span> through hidden doors that appear in the city.',
+                        negative: 'He <span class="main-clause">does not stay</span> in one time for too long.',
+                        question: '<span class="main-clause">Does</span> he <span class="main-clause">control</span> the portals?'
+                    },
+                    timeline: { type: 'point', position: 50, shape: 'point' } 
+                },
+                'present-continuous': { 
+                    name: 'Present Continuous', 
+                    explanation: 'This describes an action happening right now.',
+                    structure: {
+                        positive: 'Subject + am/is/are + Verb-ing',
+                        negative: 'Subject + am/is/are + not + Verb-ing',
+                        question: 'Am/Is/Are + Subject + Verb-ing?'
+                    },
+                    examples: {
+                        positive: 'Right this moment, he <span class="main-clause">is running</span> across rooftops to escape mysterious agents.',
+                        negative: 'The agents <span class="main-clause">are not giving</span> up the chase.',
+                        question: '<span class="main-clause">Is</span> he <span class="main-clause">heading</span> toward another portal?'
+                    },
+                    timeline: { type: 'duration', start: 48, end: 52, shape: 'duration', mainClause: 'is running' } 
+                },
+                'present-perfect': {
+                    name: 'Present Perfect',
+                    explanation: 'This connects a finished past action to the present, often focusing on the result.',
+                    structure: {
+                        positive: 'Subject + have/has + Past Participle',
+                        negative: 'Subject + have/has + not + Past Participle',
+                        question: 'Have/Has + Subject + Past Participle?'
+                    },
+                    examples: {
+                        positive: 'Since this morning, he <span class="main-clause">has discovered</span> three new portals.',
+                        negative: 'He <span class="main-clause">has not found</span> the one that leads home yet.',
+                        question: '<span class="main-clause">Has</span> he <span class="main-clause">eaten</span> anything today?'
+                    },
+                    timeline: { type: 'duration', start: 40, end: 50, shape: 'perfect', mainClause: 'has discovered' }
+                },
+                'present-perfect-continuous': {
+                    name: 'Present Perfect Continuous',
+                    explanation: 'This shows an action that started in the past and is still continuing now, emphasizing the duration.',
+                    structure: {
+                        positive: 'Subject + have/has been + Verb-ing',
+                        negative: 'Subject + have/has + not + been + Verb-ing',
+                        question: 'Have/Has + Subject + been + Verb-ing?'
+                    },
+                    examples: {
+                        positive: 'Ever since he put on the watch, he <span class="main-clause">has been living</span> a life full of danger and wonder.',
+                        negative: 'He <span class="main-clause">has not been living</span> a normal life.',
+                        question: '<span class="main-clause">Have</span> the agents <span class="main-clause">been tracking</span> him for a long time?'
+                    },
+                    timeline: { type: 'duration', start: 25, end: 50, shape: 'perfect-continuous', mainClause: 'has been living' }
+                },
+               
+                // --- FUTURE ---
+                'future-simple': { 
+                    name: 'Future Simple',
+                    explanation: 'Now, we jump to the future to talk about predictions or decisions.',
+                    structure: {
+                        positive: 'Subject + will + Verb',
+                        negative: 'Subject + will not + Verb',
+                        question: 'Will + Subject + Verb?'
+                    },
+                    examples: {
+                        positive: 'Tomorrow, he <span class="main-clause">will step</span> into the largest portal he has ever seen.',
+                        negative: 'He <span class="main-clause">will not hesitate</span>.',
+                        question: '<span class="main-clause">Will</span> he <span class="main-clause">find</span> what he is looking for?'
+                    },
+                    timeline: { type: 'point', position: 75, shape: 'point' }
+                },
+                'future-continuous': { 
+                    name: 'Future Continuous',
+                    explanation: 'This describes an ongoing action at a specific time in the future.',
+                     structure: {
+                        positive: 'Subject + will be + Verb-ing',
+                        negative: 'Subject + will not be + Verb-ing',
+                        question: 'Will + Subject + be + Verb-ing?'
+                    },
+                    examples: {
+                        positive: 'While he <span class="main-clause">will be searching</span> for the world beyond, his enemies will follow.',
+                        negative: 'He <span class="main-clause">will not be resting</span> during his search.',
+                        question: '<span class="main-clause">Will</span> the agents <span class="main-clause">be waiting</span> for him on the other side?'
+                    },
+                    timeline: { type: 'duration', start: 70, end: 80, shape: 'duration', mainClause: 'will be searching' }
+                },
+                'future-perfect': { 
+                    name: 'Future Perfect',
+                    explanation: 'An action that will be completed *before* a certain point in the future.',
+                    structure: {
+                        positive: 'Subject + will have + Past Participle',
+                        negative: 'Subject + will not have + Past Participle',
+                        question: 'Will + Subject + have + Past Participle?'
+                    },
+                    examples: {
+                        positive: 'By the time the sun rises, he <span class="main-clause">will have unlocked</span> the final secret of the watch.',
+                        negative: 'His enemies <span class="main-clause">will not have caught</span> him by then.',
+                        question: '<span class="main-clause">Will</span> he <span class="main-clause">have learned</span> the watch\'s true purpose?'
+                    },
+                    timeline: { type: 'duration', start: 72, end: 85, shape: 'perfect', marker: { position: 85, label: 'Sun rises' }, mainClause: 'will have unlocked' }
+                },
+                'future-perfect-continuous': {
+                    name: 'Future Perfect Continuous',
+                    explanation: 'Emphasizes the duration of an action up to a certain point in the future.',
+                    structure: {
+                        positive: 'Subject + will have been + Verb-ing',
+                        negative: 'Subject + will not have been + Verb-ing',
+                        question: 'Will + Subject + have been + Verb-ing?'
+                    },
+                    examples: {
+                        positive: 'By next year, he <span class="main-clause">will have been guarding</span> the pathways of time for a decade.',
+                        negative: 'He <span class="main-clause">will not have been aging</span> like a normal person.',
+                        question: '<span class="main-clause">Will</span> he <span class="main-clause">have been traveling</span> all that time?'
+                    },
+                    timeline: { type: 'duration', start: 50, end: 95, shape: 'perfect-continuous', marker: { position: 95, label: 'Next Year' }, mainClause: 'will have been guarding' }
+                }
+            };
+
+            const quizData = {
+                past: {
+                    title: 'The Ancient Map',
+                    questions: [
+                        { text: 'Last year, two explorers', verb: 'discover', answer: 'discovered', tense: 'past-simple', break: false },
+                        { text: 'an ancient map in a library. While they', verb: 'examine', answer: 'were examining', tense: 'past-continuous', break: false },
+                        { text: 'it, the librarian told them its story. Before that day, many people', verb: 'try', answer: 'had tried', tense: 'past-perfect', break: true },
+                        { text: 'to find the map. For years, the original owner', verb: 'hide', answer: 'had been hiding', tense: 'past-perfect-continuous', break: false },
+                        { text: 'it to protect its secret.' }
+                    ]
+                },
+                present: {
+                    title: 'The City Market',
+                    questions: [
+                        { text: 'Every Saturday, the city market', verb: 'open', answer: 'opens', tense: 'present-simple', break: false },
+                        { text: 'at dawn. Right now, a musician', verb: 'play', answer: 'is playing', tense: 'present-continuous', break: true },
+                        { text: 'the guitar. So far today, she', verb: 'earn', answer: 'has earned', tense: 'present-perfect', break: false },
+                        { text: 'a lot in tips. She', verb: 'perform', answer: 'has been performing', tense: 'present-perfect-continuous', break: false },
+                        { text: 'since 8 AM.' }
+                    ]
+                },
+                future: {
+                    title: 'The Mars Mission',
+                    questions: [
+                        { text: 'Next week, the spaceship', verb: 'launch', answer: 'will launch', tense: 'future-simple', break: true },
+                        { text: 'This time next month, the astronauts', verb: 'travel', answer: 'will be traveling', tense: 'future-continuous', break: false },
+                        { text: 'towards Mars. By the end of the year, they', verb: 'reach', answer: 'will have reached', tense: 'future-perfect', break: false },
+                        { text: 'their destination. By the time they land, they', verb: 'prepare', answer: 'will have been preparing', tense: 'future-perfect-continuous', break: true },
+                        { text: 'for this moment for five years.' }
+                    ]
+                }
+            };
+            
+            const storyline = [
+                'past-simple', 'past-continuous', 'past-perfect', 'past-perfect-continuous',
+                'present-simple', 'present-continuous', 'present-perfect', 'present-perfect-continuous',
+                'future-simple', 'future-continuous', 'future-perfect', 'future-perfect-continuous'
+            ];
+            
+            let currentStep = 0;
+            let currentQuizKey = null;
+
+            const reviewBtnNav = document.getElementById('review-btn-nav');
+            const quizBtnNav = document.getElementById('quiz-btn-nav');
+            const tenseNameEl = document.getElementById('tense-name');
+            const tenseExplanationEl = document.getElementById('tense-explanation');
+            const examplesContainer = document.getElementById('examples-container');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const stepCounterEl = document.getElementById('step-counter');
+            const timelineIndicator = document.getElementById('timeline-indicator');
+            const timelineMarkersContainer = document.getElementById('timeline-markers');
+            const timelinePastEl = document.getElementById('timeline-past');
+            const timelinePresentEl = document.getElementById('timeline-present');
+            const timelineFutureEl = document.getElementById('timeline-future');
+            const storyArea = document.getElementById('story-area');
+            const quizArea = document.getElementById('quiz-area');
+            const quizSelection = document.getElementById('quiz-selection');
+            const quizContent = document.getElementById('quiz-content');
+            const quizTitle = document.getElementById('quiz-title');
+            const quizStoryEl = document.getElementById('quiz-story');
+            const submitBtn = document.getElementById('submit-btn');
+            const tryAgainBtn = document.getElementById('try-again-btn');
+            const revealBtn = document.getElementById('reveal-btn');
+            const backToSelectionBtn = document.getElementById('back-to-selection-btn');
+            const quizResultsEl = document.getElementById('quiz-results');
+
+            function updateDisplay() {
+                const tenseKey = storyline[currentStep];
+                const data = storyData[tenseKey];
+                if (!data) return;
+
+                const displayArea = document.getElementById('display-area');
+                displayArea.style.opacity = '0';
+                displayArea.style.transform = 'translateY(10px)';
+
+                setTimeout(() => {
+                    tenseNameEl.textContent = data.name;
+                    tenseExplanationEl.textContent = data.explanation;
+                    examplesContainer.innerHTML = '';
+                    
+                    const createExampleEl = (type, example, structure) => {
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700';
+                        let typeColor = '';
+                        if (type === 'Positive') typeColor = 'text-green-600 dark:text-green-400';
+                        if (type === 'Negative') typeColor = 'text-red-600 dark:text-red-400';
+                        if (type === 'Question') typeColor = 'text-yellow-600 dark:text-yellow-400';
+
+                        wrapper.innerHTML = `
+                            <h4 class="font-semibold text-md ${typeColor}">${type}</h4>
+                            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 font-serif my-2">"${example}"</p>
+                            <p class="font-mono text-xs md:text-sm text-blue-600 dark:text-blue-400 p-2 bg-blue-50 dark:bg-blue-900/20 rounded">${structure}</p>
+                        `;
+                        return wrapper;
+                    };
+
+                    examplesContainer.appendChild(createExampleEl('Positive', data.examples.positive, data.structure.positive));
+                    examplesContainer.appendChild(createExampleEl('Negative', data.examples.negative, data.structure.negative));
+                    examplesContainer.appendChild(createExampleEl('Question', data.examples.question, data.structure.question));
+                    
+                    updateTimeline(tenseKey);
+                    updateNavigation();
+
+                    displayArea.style.opacity = '1';
+                    displayArea.style.transform = 'translateY(0px)';
+                }, 300);
+            }
+
+            function updateNavigation() {
+                prevBtn.disabled = currentStep === 0;
+                const nextBtnIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+
+                if (currentStep === storyline.length - 1) {
+                    nextBtn.innerHTML = `Take the Quiz ${nextBtnIcon}`;
+                } else {
+                    nextBtn.innerHTML = `Next ${nextBtnIcon}`;
+                }
+                nextBtn.disabled = false;
+                stepCounterEl.textContent = `Step ${currentStep + 1} of ${storyline.length}`;
+            }
+
+            function updateTimeline(tenseKey) {
+                const data = storyData[tenseKey]?.timeline;
+                if (!data) return;
+                
+                timelineMarkersContainer.innerHTML = '';
+                timelineIndicator.innerHTML = ''; 
+                
+                timelineIndicator.className = 'timeline-indicator absolute';
+                timelineIndicator.classList.add(`timeline-indicator-${data.shape}`);
+
+                if(data.type === 'point') {
+                    timelineIndicator.style.left = `${data.position}%`;
+                    timelineIndicator.style.width = '12px';
+                } else if (data.type === 'duration') {
+                    const width = data.end - data.start;
+                    timelineIndicator.style.left = `${data.start + width / 2}%`;
+                    timelineIndicator.style.width = `${width}%`;
+                }
+                
+                const mainClauseText = data.mainClause;
+                if (mainClauseText && data.type === 'duration') {
+                    const clauseLabel = document.createElement('span');
+                    clauseLabel.className = 'timeline-clause-label';
+                    clauseLabel.textContent = mainClauseText;
+                    timelineIndicator.appendChild(clauseLabel);
+                }
+
+                if (data.marker) {
+                    const markerWrapper = document.createElement('div');
+                    markerWrapper.className = 'absolute top-0 h-full';
+                    markerWrapper.style.left = `${data.marker.position}%`;
+
+                    const markerLine = document.createElement('div');
+                    markerLine.className = 'absolute top-1/2 -translate-y-1/2 w-px h-4 bg-gray-400 dark:bg-gray-500 -translate-x-1/2';
+
+                    const markerLabel = document.createElement('span');
+                    markerLabel.className = 'absolute top-full text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap mt-2 bg-white/50 dark:bg-gray-800/50 px-1 rounded -translate-x-1/2';
+                    markerLabel.textContent = data.marker.label;
+                    
+                    markerWrapper.appendChild(markerLine);
+                    markerWrapper.appendChild(markerLabel);
+                    timelineMarkersContainer.appendChild(markerWrapper);
+                }
+
+                timelinePastEl.classList.remove('timeline-marker-active');
+                timelinePresentEl.classList.remove('timeline-marker-active');
+                timelineFutureEl.classList.remove('timeline-marker-active');
+
+                if (tenseKey.startsWith('past')) {
+                    timelinePastEl.classList.add('timeline-marker-active');
+                } else if (tenseKey.startsWith('present')) {
+                    timelinePresentEl.classList.add('timeline-marker-active');
+                } else if (tenseKey.startsWith('future')) {
+                    timelineFutureEl.classList.add('timeline-marker-active');
+                }
+            }
+            
+            function showStoryMode() {
+                storyArea.classList.remove('hidden');
+                quizArea.classList.add('hidden');
+                reviewBtnNav.classList.add('active');
+                quizBtnNav.classList.remove('active');
+                document.getElementById('header-subtitle').textContent = "A self-guided exploration of English tenses.";
+            }
+
+            function showQuizMode() {
+                storyArea.classList.add('hidden');
+                quizArea.classList.remove('hidden');
+                quizContent.classList.add('hidden');
+                quizSelection.classList.remove('hidden');
+                reviewBtnNav.classList.remove('active');
+                quizBtnNav.classList.add('active');
+                document.getElementById('header-subtitle').textContent = "Test your knowledge with a short story quiz.";
+            }
+            
+            function buildQuiz(quizKey) {
+                currentQuizKey = quizKey;
+                const quiz = quizData[quizKey];
+
+                quizTitle.textContent = quiz.title;
+                quizStoryEl.innerHTML = '';
+                let storyHtml = '<p>';
+                quiz.questions.forEach((q, index) => {
+                    storyHtml += ` ${q.text}`;
+                    if (q.verb && q.answer) {
+                        const tenseData = storyData[q.tense];
+                        storyHtml += ` <span class="quiz-input-wrapper">
+                            <input data-index="${index}" type="text" class="quiz-input" placeholder="(${q.verb})">
+                            <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">(${tenseData.name})</span>
+                        </span>`;
+                    }
+                    if (q.break) {
+                        storyHtml += '.</p><p>';
+                    }
+                });
+                storyHtml += '</p>';
+                quizStoryEl.innerHTML = storyHtml;
+
+                quizSelection.classList.add('hidden');
+                quizContent.classList.remove('hidden');
+                resetQuizState();
+            }
+
+            function checkAnswers() {
+                const inputs = quizStoryEl.querySelectorAll('.quiz-input');
+                let correctCount = 0;
+                inputs.forEach(input => {
+                    const index = input.dataset.index;
+                    const question = quizData[currentQuizKey].questions[index];
+                    input.classList.remove('correct', 'incorrect');
+                    if (input.value.trim().toLowerCase() === question.answer.toLowerCase()) {
+                        input.classList.add('correct');
+                        correctCount++;
+                    } else {
+                        input.classList.add('incorrect');
+                    }
+                });
+                return correctCount;
+            }
+
+            function resetQuizState() {
+                const inputs = quizStoryEl.querySelectorAll('.quiz-input');
+                inputs.forEach(input => {
+                     input.value = '';
+                     input.disabled = false;
+                     input.classList.remove('correct', 'incorrect');
+                 });
+                 quizResultsEl.textContent = '';
+                 submitBtn.classList.remove('hidden');
+                 tryAgainBtn.classList.add('hidden');
+                 revealBtn.classList.add('hidden');
+            }
+            
+            function revealAnswers() {
+                const inputs = quizStoryEl.querySelectorAll('.quiz-input');
+                inputs.forEach(input => {
+                    const index = input.dataset.index;
+                    const question = quizData[currentQuizKey].questions[index];
+                    input.value = question.answer;
+                    input.disabled = true;
+                    input.classList.remove('incorrect');
+                    input.classList.add('correct');
+                });
+                tryAgainBtn.classList.remove('hidden');
+                revealBtn.classList.add('hidden');
+            }
+
+
+            function initialize() {
+                updateDisplay();
+
+                nextBtn.addEventListener('click', () => {
+                    if (currentStep === storyline.length - 1) {
+                        showQuizMode();
+                    } else {
+                        currentStep++;
+                        updateDisplay();
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        updateDisplay();
+                    }
+                });
+                
+                document.querySelectorAll('.quiz-select-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        buildQuiz(e.target.dataset.quiz);
+                    });
+                });
+
+                submitBtn.addEventListener('click', () => {
+                    const correctCount = checkAnswers();
+                    const total = quizStoryEl.querySelectorAll('.quiz-input').length;
+                    quizResultsEl.textContent = `You got ${correctCount} out of ${total} correct!`;
+                    if (correctCount === total) {
+                        quizResultsEl.className = 'text-center mt-4 h-6 font-semibold text-green-500';
+                    } else {
+                        quizResultsEl.className = 'text-center mt-4 h-6 font-semibold text-yellow-500';
+                    }
+                    submitBtn.classList.add('hidden');
+                    tryAgainBtn.classList.remove('hidden');
+                    revealBtn.classList.remove('hidden');
+                });
+                
+                tryAgainBtn.addEventListener('click', resetQuizState);
+                revealBtn.addEventListener('click', revealAnswers);
+                backToSelectionBtn.addEventListener('click', showQuizMode);
+
+                reviewBtnNav.addEventListener('click', showStoryMode);
+                quizBtnNav.addEventListener('click', showQuizMode);
+            }
+
+            initialize();
+        });
+    </script>
+</body>
+</html>
+
+
