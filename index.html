@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #484848; -webkit-text-stroke: #484848; background-color: #e1e8f2}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #484848; -webkit-text-stroke: #484848; background-color: #e1e8f2; min-height: 16.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en" class="dark"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;English Tense Visualiser&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: background-color 0.4s ease-in-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.tense-btn.active {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5), 0 2px 4px -2px rgba(59, 130, 246, 0.5);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.form-btn {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: all 0.2s ease-in-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.form-btn.active-positive {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>background-color: #3b82f6; /* blue-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">             </span>box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.form-btn.active-negative {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #ef4444; /* red-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.39);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.form-btn.active-question {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #eab308; /* yellow-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 14px 0 rgba(234, 179, 8, 0.39);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.transition-all-ease {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease-in-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.main-clause {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #10b981; /* emerald-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.dark .main-clause {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #34d399; /* emerald-400 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.timeline-indicator {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: relative;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: left 0.4s ease-in-out, width 0.4s ease-in-out;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translateX(-50%);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.timeline-indicator-point {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #3b82f6; /* blue-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 9999px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 12px !important;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: calc(50% - 6px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.timeline-indicator-duration {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #10b981; /* emerald-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 9999px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: calc(50% - 4px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.timeline-indicator-perfect {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: transparent;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-image: repeating-linear-gradient(90deg, #8b5cf6, #8b5cf6 8px, transparent 8px, transparent 16px); /* violet-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: calc(50% - 3px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.timeline-indicator-perfect-continuous {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: radial-gradient(circle at 50% 100%, transparent 4px, #f59e0b 4px, #f59e0b 6px, transparent 6px) 0 -2px / 12px 6px,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>radial-gradient(circle at 50% 0, transparent 4px, #f59e0b 4px, #f59e0b 6px, transparent 6px) 0 4px / 12px 6px; /* amber-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-repeat: repeat-x;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>top: calc(50% - 5px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.timeline-clause-label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>bottom: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: 50%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translateX(-50%);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>white-space: nowrap;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 0.75rem; /* text-xs */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #059669; /* emerald-600 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: rgba(240, 253, 244, 0.8); /* emerald-50 with opacity */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 2px 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 4px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(2px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.dark .timeline-clause-label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #6ee7b7; /* emerald-300 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: rgba(30, 41, 59, 0.7); /* slate-800 with opacity */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.timeline-marker-active {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #10b981; /* emerald-500 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 700;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.dark .timeline-marker-active {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #34d399; /* emerald-400 */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@keyframes spin {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>to { transform: rotate(360deg); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.loader {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 2px solid rgba(255, 255, 255, 0.3);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-top-color: #3b82f6;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>animation: spin 1s linear infinite;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tailwind.config = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>darkMode: 'class',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 antialiased"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="container mx-auto p-4 sm:p-6 md:p-8"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;header class="text-center mb-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white"&gt;English Tense Visualizer&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p id="header-subtitle" class="text-md sm:text-lg text-gray-600 dark:text-gray-400 mt-2"&gt;Select a tense or form to see the example change.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- Display Area --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="display-area" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8 flex flex-col justify-center transition-all-ease"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h2 id="tense-name" class="text-2xl md:text-3xl font-bold text-blue-500 dark:text-blue-400 mb-4 text-center"&gt;Present Simple&lt;/h2&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div id="form-selector" class="flex justify-center gap-2 sm:gap-4 mb-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button data-form="positive" class="form-btn active-positive py-2 px-5 rounded-lg font-semibold"&gt;Positive&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button data-form="negative" class="form-btn bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 py-2 px-5 rounded-lg font-semibold"&gt;Negative&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button data-form="question" class="form-btn bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 py-2 px-5 rounded-lg font-semibold"&gt;Question&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p id="tense-example" class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-4 text-center font-mono p-4 bg-gray-100 dark:bg-gray-700 rounded-lg"&gt;"She writes a novel."&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p id="tense-explanation" class="text-center text-gray-500 dark:text-gray-400 text-sm md:text-base mb-4"&gt;Used for habits, unchanging situations, general truths, and fixed arrangements.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p id="tense-structure" class="text-center text-blue-600 dark:text-blue-400 text-sm md:text-base font-semibold font-mono p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg"&gt;Subject + Verb (s/es) + Object&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button id="generate-examples-btn" class="mt-8 mx-auto flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 active:bg-blue-700 transition-all-ease disabled:bg-gray-400 disabled:cursor-not-allowed"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;path d="M12 3c-1.2 0-2.4.6-3 1.7A3.5 3.5 0 0 0 5 8c0 1.7 1.3 3 3 3h8c1.7 0 3-1.3 3-3a3.5 3.5 0 0 0-4-3.7c-.6-1.1-1.8-1.7-3-1.7Z"/&gt;&lt;path d="m12 11.5-1.5 4.5 4-2-2.5-2.5"/&gt;&lt;path d="M12 21a9.9 9.9 0 0 0 8.7-5.1"/&gt;&lt;path d="M4.1 14.5A9.9 9.9 0 0 0 12 21"/&gt;&lt;/svg&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>Generate More Examples</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- Gemini Results Area --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="gemini-results-area" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8 hidden"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4"&gt;More Examples:&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div id="gemini-content"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- Timeline Visualizer --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-xl font-bold text-center text-gray-900 dark:text-white mb-6"&gt;Tense Timeline&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="relative h-1 bg-gray-200 dark:bg-gray-700 rounded-full mt-24"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="absolute w-full -top-10 flex justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span id="timeline-past"&gt;Past&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span id="timeline-present"&gt;Present&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span id="timeline-future"&gt;Future&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-6 bg-gray-400 dark:bg-gray-500"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div id="timeline-indicator" class="timeline-indicator absolute"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>&lt;div id="timeline-markers" class="absolute w-full h-full top-0 left-0"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- Tense Selection Grid --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div id="tense-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;!-- Tense columns will be populated by JS --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tenseData = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'present-simple': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Present Simple',<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: 'Used for habits, general truths, and fixed future arrangements.',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She writes a novel.', structure: 'Subject + Verb (s/es) + Object' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She does not write a novel.', structure: 'Subject + do/does not + Verb + Object' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: 'Does she write a novel?', structure: 'Do/Does + Subject + Verb + Object?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'point', position: 50, shape: 'point' }<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'present-continuous': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Present Continuous',<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: 'Used for actions happening now or temporary situations.',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;is writing&lt;/span&gt; a novel.', structure: 'Subject + am/is/are + Verb-ing + Object', mainClause: 'is writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;is not writing&lt;/span&gt; a novel.', structure: 'Subject + am/is/are not + Verb-ing + Object', mainClause: 'is not writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Is she writing&lt;/span&gt; a novel?', structure: 'Am/Is/Are + Subject + Verb-ing + Object?', mainClause: 'Is she writing?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 48, end: 52, shape: 'duration' }<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'present-perfect': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Present Perfect',<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: 'Used for past actions with results in the present or life experiences.',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;has written&lt;/span&gt; a novel.', structure: 'Subject + have/has + Past Participle + Object', mainClause: 'has written' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;has not written&lt;/span&gt; a novel.', structure: 'Subject + have/has not + Past Participle + Object', mainClause: 'has not written' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Has she written&lt;/span&gt; a novel?', structure: 'Have/Has + Subject + Past Participle + Object?', mainClause: 'Has she written?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 20, end: 50, shape: 'perfect' }<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'present-perfect-continuous': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Present Perfect Continuous',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: 'Used to show that something started in the past and has continued up until now.',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;has been writing&lt;/span&gt; a novel.', structure: 'Subject + have/has been + Verb-ing + Object', mainClause: 'has been writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;has not been writing&lt;/span&gt; a novel.', structure: 'Subject + have/has not been + Verb-ing + Object', mainClause: 'has not been writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Has she been writing&lt;/span&gt; a novel?', structure: 'Have/Has + Subject + been + Verb-ing + Object?', mainClause: 'Has she been writing?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 30, end: 50, shape: 'perfect-continuous' }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'past-simple': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Past Simple',<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: 'Used for completed actions in the past.',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She wrote a novel.', structure: 'Subject + Verb (past tense) + Object' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She did not write a novel.', structure: 'Subject + did not + Verb (base form) + Object' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: 'Did she write a novel?', structure: 'Did + Subject + Verb (base form) + Object?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'point', position: 25, shape: 'point' }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'past-continuous': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Past Continuous',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: "Used for an ongoing action in the past ('was writing') that was interrupted by another action ('the phone rang').",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;was writing&lt;/span&gt; a novel when the phone rang.', structure: 'Subject + was/were + Verb-ing + Object', mainClause: 'was writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;was not writing&lt;/span&gt; a novel when the phone rang.', structure: 'Subject + was/were not + Verb-ing + Object', mainClause: 'was not writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Was she writing&lt;/span&gt; a novel when the phone rang?', structure: 'Was/Were + Subject + Verb-ing + Object?', mainClause: 'Was she writing?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 15, end: 35, shape: 'duration', marker: { position: 30, label: 'Phone rang' } }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'past-perfect': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Past Perfect',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: "Describes a past action ('She had written') that happened before another past action ('the movie came out').",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;had written the novel&lt;/span&gt; before the movie came out.', structure: 'Subject + had + Past Participle + Object', mainClause: 'had written' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;had not written the novel&lt;/span&gt; before the movie came out.', structure: 'Subject + had not + Past Participle + Object', mainClause: 'had not written' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Had she written the novel&lt;/span&gt; before the movie came out?', structure: 'Had + Subject + Past Participle + Object?', mainClause: 'Had she written?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 10, end: 30, shape: 'perfect', marker: { position: 30, label: 'Movie came out' } }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'past-perfect-continuous': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Past Perfect Continuous',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: "A past ongoing action ('She had been writing') completed before another past action ('she was published').",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;had been writing for years&lt;/span&gt; before she was published.', structure: 'Subject + had been + Verb-ing + Object', mainClause: 'had been writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;had not been writing for long&lt;/span&gt; before she was published.', structure: 'Subject + had not been + Verb-ing + Object', mainClause: 'had not been writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Had she been writing for long&lt;/span&gt; before she was published?', structure: 'Had + Subject + been + Verb-ing + Object?', mainClause: 'Had she been writing?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 5, end: 20, shape: 'perfect-continuous', marker: { position: 20, label: 'She was published' } }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'future-simple': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Future Simple',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: 'Used for decisions made at the moment of speaking or predictions.',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She will write a novel.', structure: 'Subject + will + Verb (base form) + Object' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She will not write a novel.', structure: 'Subject + will not + Verb (base form) + Object' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: 'Will she write a novel?', structure: 'Will + Subject + Verb (base form) + Object?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'point', position: 75, shape: 'point' }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'future-continuous': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Future Continuous',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: "Used for an ongoing action ('will be writing') at a specific time in the future, often when another action happens ('when you arrive').",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;will be writing&lt;/span&gt; a novel when you arrive.', structure: 'Subject + will be + Verb-ing + Object', mainClause: 'will be writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;will not be writing&lt;/span&gt; a novel when you arrive.', structure: 'Subject + will not be + Verb-ing + Object', mainClause: 'will not be writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Will she be writing&lt;/span&gt; a novel when you arrive?', structure: 'Will + Subject + be + Verb-ing + Object?', mainClause: 'Will she be writing?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 65, end: 85, shape: 'duration', marker: { position: 75, label: 'You arrive' } }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'future-perfect': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Future Perfect',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: "An action ('She will have written') completed before a specific time in the future ('next year').",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;will have written the novel&lt;/span&gt; by next year.', structure: 'Subject + will have + Past Participle + Object', mainClause: 'will have written' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;will not have written the novel&lt;/span&gt; by next year.', structure: 'Subject + will not have + Past Participle + Object', mainClause: 'will not have written' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Will she have written the novel&lt;/span&gt; by next year?', structure: 'Will + Subject + have + Past Participle + Object?', mainClause: 'Will she have written?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 75, end: 95, shape: 'perfect', marker: { position: 95, label: 'Next year' } }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'future-perfect-continuous': {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>name: 'Future Perfect Continuous',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>explanation: "Emphasizes the duration of an activity ('She will have been writing') before another event in the future ('she is finished').",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>positive: { example: 'She &lt;span class="main-clause"&gt;will have been writing for five years&lt;/span&gt; by the time she is finished.', structure: 'Subject + will have been + Verb-ing + Object', mainClause: 'will have been writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>negative: { example: 'She &lt;span class="main-clause"&gt;will not have been writing for five years&lt;/span&gt; by the time she is finished.', structure: 'Subject + will not have been + Verb-ing + Object', mainClause: 'will not have been writing' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>question: { example: '&lt;span class="main-clause"&gt;Will she have been writing for five years&lt;/span&gt; by the time she is finished?', structure: 'Will + Subject + have been + Verb-ing + Object?', mainClause: 'Will she have been writing?' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timeline: { type: 'duration', start: 80, end: 98, shape: 'perfect-continuous', marker: { position: 98, label: 'She is finished' } }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tenseNameEl = document.getElementById('tense-name');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tenseExampleEl = document.getElementById('tense-example');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tenseExplanationEl = document.getElementById('tense-explanation');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tenseStructureEl = document.getElementById('tense-structure');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const generateBtn = document.getElementById('generate-examples-btn');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const geminiResultsArea = document.getElementById('gemini-results-area');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const geminiContent = document.getElementById('gemini-content');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const timelineIndicator = document.getElementById('timeline-indicator');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const timelineMarkersContainer = document.getElementById('timeline-markers');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tenseGrid = document.getElementById('tense-grid');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const formButtons = document.querySelectorAll('.form-btn');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const timelinePastEl = document.getElementById('timeline-past');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const timelinePresentEl = document.getElementById('timeline-present');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const timelineFutureEl = document.getElementById('timeline-future');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let currentTenseKey = 'present-simple';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let currentForm = 'positive';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let tenseButtons;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function buildTenseGrid() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const categories = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>Past: ['past-simple', 'past-continuous', 'past-perfect', 'past-perfect-continuous'],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>Present: ['present-simple', 'present-continuous', 'present-perfect', 'present-perfect-continuous'],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>Future: ['future-simple', 'future-continuous', 'future-perfect', 'future-perfect-continuous']</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>for (const [category, tenses] of Object.entries(categories)) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const colDiv = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>colDiv.className = 'space-y-4';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const header = document.createElement('h3');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>header.className = 'text-xl font-semibold text-center text-gray-500 dark:text-gray-400';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>header.textContent = category;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>colDiv.appendChild(header);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>tenses.forEach(tenseKey =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const button = document.createElement('button');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const tenseName = tenseData[tenseKey].name.replace(/(Past|Present|Future)\s/, '');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>button.dataset.tense = tenseKey;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>button.className = 'tense-btn w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:bg-blue-50 dark:hover:bg-gray-700 transition-all-ease';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const span = document.createElement('span');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>span.className = 'font-semibold text-gray-700 dark:text-gray-200';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>span.textContent = tenseName;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>button.appendChild(span);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>colDiv.appendChild(button);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>tenseGrid.appendChild(colDiv);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tenseButtons = document.querySelectorAll('.tense-btn');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function updateDisplay(tenseKey, form) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>currentTenseKey = tenseKey;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>currentForm = form;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const data = tenseData[tenseKey];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (!data) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tenseNameEl.textContent = data.name;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tenseExampleEl.innerHTML = `"${data[form].example}"`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tenseExplanationEl.textContent = data.explanation;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tenseStructureEl.textContent = data[form].structure;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>geminiResultsArea.style.display = 'none';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>geminiContent.innerHTML = '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function updateTimeline(tenseKey) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const data = tenseData[tenseKey]?.timeline;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (!data) return;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timelineMarkersContainer.innerHTML = '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timelineIndicator.innerHTML = ''; // Clear previous labels</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timelineIndicator.className = 'timeline-indicator absolute';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timelineIndicator.classList.add(`timeline-indicator-${data.shape}`);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if(data.type === 'point') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelineIndicator.style.left = `${data.position}%`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelineIndicator.style.width = '12px';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else if (data.type === 'duration') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const width = data.end - data.start;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelineIndicator.style.left = `${data.start + width / 2}%`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelineIndicator.style.width = `${width}%`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const mainClauseText = tenseData[tenseKey]?.[currentForm]?.mainClause;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (mainClauseText &amp;&amp; data.type === 'duration') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const clauseLabel = document.createElement('span');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>clauseLabel.className = 'timeline-clause-label';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>clauseLabel.textContent = mainClauseText;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelineIndicator.appendChild(clauseLabel);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (data.marker) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const markerWrapper = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>markerWrapper.className = 'absolute top-0 h-full';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>markerWrapper.style.left = `${data.marker.position}%`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const markerLine = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>markerLine.className = 'absolute top-1/2 -translate-y-1/2 w-px h-4 bg-gray-400 dark:bg-gray-500 -translate-x-1/2';</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const markerLabel = document.createElement('span');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>markerLabel.className = 'absolute top-full text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap mt-2 bg-white/50 dark:bg-gray-800/50 px-1 rounded -translate-x-1/2';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>markerLabel.textContent = data.marker.label;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>markerWrapper.appendChild(markerLine);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>markerWrapper.appendChild(markerLabel);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelineMarkersContainer.appendChild(markerWrapper);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Highlight the correct time marker (Past, Present, Future)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timelinePastEl.classList.remove('timeline-marker-active');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timelinePresentEl.classList.remove('timeline-marker-active');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>timelineFutureEl.classList.remove('timeline-marker-active');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (tenseKey.startsWith('past')) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelinePastEl.classList.add('timeline-marker-active');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else if (tenseKey.startsWith('present')) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelinePresentEl.classList.add('timeline-marker-active');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else if (tenseKey.startsWith('future')) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>timelineFutureEl.classList.add('timeline-marker-active');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function updateActiveTenseButton(activeButton) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tenseButtons.forEach(button =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>button.classList.remove('active', 'bg-blue-500', 'dark:bg-blue-600', 'text-white');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>button.classList.add('bg-white', 'dark:bg-gray-800');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>button.querySelector('span').classList.add('text-gray-700', 'dark:text-gray-200');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>activeButton.classList.add('active', 'bg-blue-500', 'dark:bg-blue-600', 'text-white');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>activeButton.classList.remove('bg-white', 'dark:bg-gray-800');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>activeButton.querySelector('span').classList.remove('text-gray-700', 'dark:text-gray-200');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function updateActiveFormButton(activeButton) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>formButtons.forEach(btn =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>btn.classList.remove('active-positive', 'active-negative', 'active-question');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>btn.classList.add('bg-white', 'dark:bg-gray-700', 'hover:bg-gray-200', 'dark:hover:bg-gray-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>activeButton.classList.remove('bg-white', 'dark:bg-gray-700', 'hover:bg-gray-200', 'dark:hover:bg-gray-600');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>activeButton.classList.add(`active-${currentForm}`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function updatePageTheme(form) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>const body = document.body;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>const subtitle = document.getElementById('header-subtitle');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>body.classList.remove('bg-gray-100', 'dark:bg-gray-900', 'bg-red-50', 'dark:bg-red-900/50', 'bg-yellow-50', 'dark:bg-yellow-900/50');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>subtitle.classList.remove('text-gray-600', 'dark:text-gray-400', 'text-gray-900', 'dark:text-gray-100');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                 </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>switch(form) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>case 'negative':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>body.classList.add('bg-red-50', 'dark:bg-red-900/50');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>subtitle.classList.add('text-gray-900', 'dark:text-gray-100');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>case 'question':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>body.classList.add('bg-yellow-50', 'dark:bg-yellow-900/50');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>subtitle.classList.add('text-gray-900', 'dark:text-gray-100');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>case 'positive':</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>default:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                         </span>body.classList.add('bg-gray-100', 'dark:bg-gray-900');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                         </span>subtitle.classList.add('text-gray-600', 'dark:text-gray-400');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                         </span>break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                 </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>async function generateExamples() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>generateBtn.disabled = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>geminiResultsArea.style.display = 'block';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>geminiContent.innerHTML = '&lt;div class="w-6 h-6 rounded-full loader mx-auto"&gt;&lt;/div&gt;';</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const tenseName = tenseData[currentTenseKey].name;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const systemPrompt = "You are an expert English grammar teacher. Your goal is to provide clear and diverse examples.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const userQuery = `Generate 3 distinct and clear example sentences for the "${tenseName}" tense in the ${currentForm} form. The sentences should cover different subjects and contexts. Format the response as a numbered list.`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const apiKey = "";<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const payload = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>contents: [{ parts: [{ text: userQuery }] }],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>systemInstruction: { parts: [{ text: systemPrompt }] },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>try {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>let response;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>for (let i = 0; i &lt; 3; i++) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>response = await fetch(apiUrl, {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>method: 'POST',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>headers: { 'Content-Type': 'application/json' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>body: JSON.stringify(payload)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>if (response.ok) break;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>await new Promise(resolve =&gt; setTimeout(resolve, 1000 * Math.pow(2, i)));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (!response.ok) throw new Error(`API request failed with status ${response.status}`);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const result = await response.json();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const text = result.candidates?.[0]?.content?.parts?.[0]?.text;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (text) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>geminiContent.innerHTML = `&lt;ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300"&gt;${text.split(/\d+\.\s/).filter(s =&gt; s.trim()).map(s =&gt; `&lt;li&gt;${s.trim()}&lt;/li&gt;`).join('')}&lt;/ul&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>throw new Error('No content received from API.');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} catch (error) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>console.error("Gemini API call failed:", error);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>geminiContent.innerHTML = `&lt;p class="text-red-500 text-center"&gt;Sorry, something went wrong while generating examples. Please try again later.&lt;/p&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} finally {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>generateBtn.disabled = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function initialize() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>buildTenseGrid();</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const initialActiveButton = document.querySelector(`[data-tense="${currentTenseKey}"]`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>updateActiveTenseButton(initialActiveButton);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>updateDisplay(currentTenseKey, currentForm);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>updateTimeline(currentTenseKey);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tenseButtons.forEach(button =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>button.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const tenseKey = button.dataset.tense;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updateDisplay(tenseKey, currentForm);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updateActiveTenseButton(button);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updateTimeline(tenseKey);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>formButtons.forEach(button =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>button.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const form = button.dataset.form;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>currentForm = form;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updateDisplay(currentTenseKey, currentForm);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updateActiveFormButton(button);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updatePageTheme(form);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updateTimeline(currentTenseKey); // Re-render timeline to update clause label</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>generateBtn.addEventListener('click', generateExamples);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>initialize();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+</body>
+</html>
